@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Unhandled Promise Rejection Sample</title>
+    <script type="text/javascript" src="unhandledrejection.nocache.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    // Extra samples to help debug what the behavior of each browser is
+    const rejectBtn = document.createElement('button');
+    rejectBtn.onclick = e => {
+        console.log("Rejecting a promise in an unhandled way from the host page, in plain JS");
+        new Promise((resolve, reject) => {setTimeout(reject, 100)})
+    };
+    rejectBtn.textContent = 'click to reject (from html)';
+
+    const throwBtn = document.createElement('button');
+    throwBtn.onclick = e => {
+        console.log("Throwing in a promise in an unhandled way from the host page, in plain JS");
+        new Promise((resolve, reject) => {setTimeout(resolve, 100)}).then(v => {
+            throw "thrown exception";
+        })
+    };
+    throwBtn.textContent = 'click to throw (from html)';
+
+    document.body.append(rejectBtn, throwBtn);
+
+    // ---
+
+    window.addEventListener('unhandledrejection', e => {
+        console.log("Unhandled rejection observed from host HTML page", e);
+    });
+</script>
+</body>
+</html>

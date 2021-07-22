@@ -9,18 +9,20 @@
 <div id="promises"></div>
 <hr />
 <div id="throws"></div>
+<hr />
+<div id="log"></div>
 <script type="text/javascript">
     // Extra samples to help debug what the behavior of each browser is
     const rejectPromiseBtn = document.createElement('button');
     rejectPromiseBtn.onclick = e => {
-        console.log("Rejecting a promise in an unhandled way from the host page, in plain JS");
+        // console.log("Rejecting a promise in an unhandled way from the host page, in plain JS");
         new Promise((resolve, reject) => {setTimeout(reject, 100)})
     };
     rejectPromiseBtn.textContent = 'click to reject a promise (from html)';
 
     const throwPromiseBtn = document.createElement('button');
     throwPromiseBtn.onclick = e => {
-        console.log("Throwing in a promise in an unhandled way from the host page, in plain JS");
+        // console.log("Throwing in a promise in an unhandled way from the host page, in plain JS");
         new Promise((resolve, reject) => {setTimeout(resolve, 100)}).then(v => {
             throw "thrown exception";
         })
@@ -32,7 +34,7 @@
     // ---
     const throwBtn = document.createElement('button');
     throwBtn.onclick = e => {
-        console.log("Throwing a JS Error object from the host page, in plain JS");
+        // console.log("Throwing a JS Error object from the host page, in plain JS");
         throw new Error("thrown exception");
     };
     throwBtn.textContent = 'click to throw in an event handler (from html)';
@@ -41,9 +43,9 @@
 
     // ---
 
-    window.addEventListener('unhandledrejection', e => {
-        console.log("Unhandled rejection observed from host HTML page", e);
-    });
+    // window.addEventListener('unhandledrejection', e => {
+    //     console.log("Unhandled rejection observed from host HTML page", e);
+    // });
 </script>
 </body>
 </html>

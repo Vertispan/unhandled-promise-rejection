@@ -6,25 +6,38 @@
     <script type="text/javascript" src="unhandledrejection.nocache.js"></script>
 </head>
 <body>
+<div id="promises"></div>
+<hr />
+<div id="throws"></div>
 <script type="text/javascript">
     // Extra samples to help debug what the behavior of each browser is
-    const rejectBtn = document.createElement('button');
-    rejectBtn.onclick = e => {
+    const rejectPromiseBtn = document.createElement('button');
+    rejectPromiseBtn.onclick = e => {
         console.log("Rejecting a promise in an unhandled way from the host page, in plain JS");
         new Promise((resolve, reject) => {setTimeout(reject, 100)})
     };
-    rejectBtn.textContent = 'click to reject (from html)';
+    rejectPromiseBtn.textContent = 'click to reject a promise (from html)';
 
-    const throwBtn = document.createElement('button');
-    throwBtn.onclick = e => {
+    const throwPromiseBtn = document.createElement('button');
+    throwPromiseBtn.onclick = e => {
         console.log("Throwing in a promise in an unhandled way from the host page, in plain JS");
         new Promise((resolve, reject) => {setTimeout(resolve, 100)}).then(v => {
             throw "thrown exception";
         })
     };
-    throwBtn.textContent = 'click to throw (from html)';
+    throwPromiseBtn.textContent = 'click to throw in a promise (from html)';
 
-    document.body.append(rejectBtn, throwBtn);
+    document.getElementById('promises').append(rejectPromiseBtn, throwPromiseBtn);
+
+    // ---
+    const throwBtn = document.createElement('button');
+    throwBtn.onclick = e => {
+        console.log("Throwing a JS Error object from the host page, in plain JS");
+        throw new Error("thrown exception");
+    };
+    throwBtn.textContent = 'click to throw in an event handler (from html)';
+
+    document.getElementById('throws').append(throwBtn);
 
     // ---
 
